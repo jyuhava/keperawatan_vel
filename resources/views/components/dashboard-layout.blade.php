@@ -205,9 +205,18 @@
                     <!-- Monitor Student Progress -->
                     <li>
                         <a href="{{ route('supervision.monitor') }}" 
-                           class="flex items-center p-3 rounded-lg hover:bg-slate-700 transition-colors group {{ request()->routeIs('supervision.*') ? 'bg-blue-600 text-white' : '' }}">
-                            <ion-icon name="school" class="text-xl {{ request()->routeIs('supervision.*') ? 'text-white' : 'text-slate-300' }} group-hover:text-white"></ion-icon>
+                           class="flex items-center p-3 rounded-lg hover:bg-slate-700 transition-colors group {{ request()->routeIs('supervision.monitor') ? 'bg-blue-600 text-white' : '' }}">
+                            <ion-icon name="school" class="text-xl {{ request()->routeIs('supervision.monitor') ? 'text-white' : 'text-slate-300' }} group-hover:text-white"></ion-icon>
                             <span x-show="sidebarOpen" x-transition class="ml-3 font-medium">Monitor Mahasiswa</span>
+                        </a>
+                    </li>
+
+                    <!-- Supervision Dashboard -->
+                    <li>
+                        <a href="{{ route('supervision.dashboard') }}" 
+                           class="flex items-center p-3 rounded-lg hover:bg-slate-700 transition-colors group {{ request()->routeIs('supervision.dashboard', 'supervision.detail', 'supervision.student') ? 'bg-blue-600 text-white' : '' }}">
+                            <ion-icon name="clipboard" class="text-xl {{ request()->routeIs('supervision.dashboard', 'supervision.detail', 'supervision.student') ? 'text-white' : 'text-slate-300' }} group-hover:text-white"></ion-icon>
+                            <span x-show="sidebarOpen" x-transition class="ml-3 font-medium">Dashboard Supervisi</span>
                         </a>
                     </li>
 

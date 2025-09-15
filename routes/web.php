@@ -54,6 +54,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Student Monitoring
         Route::get('/monitor-mahasiswa', [App\Http\Controllers\SupervisionController::class, 'monitorStudents'])->name('supervision.monitor');
         
+        // Advanced Supervision System
+        Route::get('/supervision/dashboard', [App\Http\Controllers\SupervisionController::class, 'supervisionDashboard'])->name('supervision.dashboard');
+        Route::get('/supervision/detail/{log}', [App\Http\Controllers\SupervisionController::class, 'supervisionDetail'])->name('supervision.detail');
+        Route::patch('/supervision/update/{log}', [App\Http\Controllers\SupervisionController::class, 'updateSupervision'])->name('supervision.update');
+        Route::get('/supervision/student/{student}', [App\Http\Controllers\SupervisionController::class, 'studentSupervision'])->name('supervision.student');
+        
         // Teaching Materials
         Route::get('/materi-ajar/panduan-sdki', [App\Http\Controllers\TeachingMaterialController::class, 'panduanSdki'])->name('materials.sdki');
         Route::get('/materi-ajar/materi-slki', [App\Http\Controllers\TeachingMaterialController::class, 'materiSlki'])->name('materials.slki');
