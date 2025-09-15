@@ -33,7 +33,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     // Patient management - Students can CRUD their own, Teachers can view all, Admin can view all
-    Route::middleware('role:mahasiswa,dosen,admin')->group(function () {
+    Route::middleware('check.role:mahasiswa,dosen,admin')->group(function () {
         Route::resource('patients', PatientController::class);
         Route::resource('assessments', AssessmentController::class);
         Route::resource('nursing-diagnoses', NursingDiagnosisController::class);
