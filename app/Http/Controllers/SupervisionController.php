@@ -26,7 +26,8 @@ class SupervisionController extends Controller
                     $query->latest()->take(3);
                 },
                 'implementations' => function($query) {
-                    $query->latest()->take(3);
+                    $query->with(['nursingIntervention.nursingDiagnosis.patient'])
+                          ->latest()->take(3);
                 }
             ])
             ->get();
@@ -39,21 +40,25 @@ class SupervisionController extends Controller
             'pending_evaluations' => Implementation::count() // Simplified for now
         ];
 
-        // Get recent student activities
-        $recentActivities = DB::table('implementations')
-            ->join('users', 'implementations.user_id', '=', 'users.id')
-            ->join('nursing_interventions', 'implementations.nursing_intervention_id', '=', 'nursing_interventions.id')
-            ->join('patients', 'nursing_interventions.patient_id', '=', 'patients.id')
-            ->select(
-                'implementations.*',
-                'users.name as student_name',
-                'users.student_id',
-                'patients.name as patient_name',
-                'implementations.completion_status as action_type'
-            )
-            ->latest('implementations.created_at')
+        // Get recent student activities using Eloquent relationships
+        $recentActivities = Implementation::with([
+                'user:id,name,student_id',
+                'nursingIntervention.nursingDiagnosis.patient:id,name'
+            ])
+            ->latest()
             ->take(10)
-            ->get();
+            ->get()
+            ->map(function ($implementation) {
+                return (object) [
+                    'id' => $implementation->id,
+                    'student_name' => $implementation->user->name,
+                    'student_id' => $implementation->user->student_id,
+                    'patient_name' => $implementation->nursingIntervention->nursingDiagnosis->patient->name ?? 'N/A',
+                    'action_type' => $implementation->completion_status,
+                    'intervention_title' => $implementation->nursingIntervention->intervention_title ?? 'N/A',
+                    'created_at' => $implementation->created_at,
+                ];
+            });
 
         return view('supervision.monitor-students', compact('students', 'stats', 'recentActivities'));
     }

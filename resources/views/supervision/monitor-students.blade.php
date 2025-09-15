@@ -133,8 +133,8 @@
                                 </div>
                                 <div class="flex-1 min-w-0">
                                     <p class="text-sm font-medium text-gray-900">{{ $activity->student_name }}</p>
-                                    <p class="text-sm text-gray-500">{{ $activity->action_type }} - {{ $activity->patient_name }}</p>
-                                    <p class="text-xs text-gray-400">{{ \Carbon\Carbon::parse($activity->created_at)->diffForHumans() }}</p>
+                                    <p class="text-sm text-gray-500">{{ ucfirst(str_replace('_', ' ', $activity->action_type)) }} - {{ $activity->patient_name }}</p>
+                                    <p class="text-xs text-gray-400">{{ $activity->created_at->diffForHumans() }}</p>
                                 </div>
                             </div>
                             @empty
