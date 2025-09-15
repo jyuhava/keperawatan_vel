@@ -204,9 +204,9 @@
                     
                     <!-- Monitor Student Progress -->
                     <li>
-                        <a href="#" 
-                           class="flex items-center p-3 rounded-lg hover:bg-slate-700 transition-colors group">
-                            <ion-icon name="school" class="text-xl text-slate-300 group-hover:text-white"></ion-icon>
+                        <a href="{{ route('supervision.monitor') }}" 
+                           class="flex items-center p-3 rounded-lg hover:bg-slate-700 transition-colors group {{ request()->routeIs('supervision.*') ? 'bg-blue-600 text-white' : '' }}">
+                            <ion-icon name="school" class="text-xl {{ request()->routeIs('supervision.*') ? 'text-white' : 'text-slate-300' }} group-hover:text-white"></ion-icon>
                             <span x-show="sidebarOpen" x-transition class="ml-3 font-medium">Monitor Mahasiswa</span>
                         </a>
                     </li>
@@ -229,19 +229,19 @@
                             x-transition:enter-end="opacity-100 translate-y-0"
                             class="ml-6 mt-2 space-y-1 border-l-2 border-slate-600 pl-4">
                             <li>
-                                <a href="#" class="flex items-center p-2 rounded text-sm hover:bg-slate-700 transition-colors">
+                                <a href="{{ route('materials.sdki') }}" class="flex items-center p-2 rounded text-sm hover:bg-slate-700 transition-colors {{ request()->routeIs('materials.sdki') ? 'bg-blue-600 text-white' : '' }}">
                                     <ion-icon name="book-outline" class="text-slate-400 mr-2"></ion-icon>
                                     Panduan SDKI
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="flex items-center p-2 rounded text-sm hover:bg-slate-700 transition-colors">
+                                <a href="{{ route('materials.slki') }}" class="flex items-center p-2 rounded text-sm hover:bg-slate-700 transition-colors {{ request()->routeIs('materials.slki') ? 'bg-blue-600 text-white' : '' }}">
                                     <ion-icon name="library-outline" class="text-slate-400 mr-2"></ion-icon>
                                     Materi SLKI
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="flex items-center p-2 rounded text-sm hover:bg-slate-700 transition-colors">
+                                <a href="{{ route('materials.siki') }}" class="flex items-center p-2 rounded text-sm hover:bg-slate-700 transition-colors {{ request()->routeIs('materials.siki') ? 'bg-blue-600 text-white' : '' }}">
                                     <ion-icon name="clipboard-outline" class="text-slate-400 mr-2"></ion-icon>
                                     Panduan SIKI
                                 </a>
@@ -284,19 +284,19 @@
                             x-transition:enter-end="opacity-100 translate-y-0"
                             class="ml-6 mt-2 space-y-1 border-l-2 border-slate-600 pl-4">
                             <li>
-                                <a href="#" class="flex items-center p-2 rounded text-sm hover:bg-slate-700 transition-colors">
+                                <a href="{{ route('help.user-guide') }}" class="flex items-center p-2 rounded text-sm hover:bg-slate-700 transition-colors {{ request()->routeIs('help.user-guide') ? 'bg-blue-600 text-white' : '' }}">
                                     <ion-icon name="document-text-outline" class="text-slate-400 mr-2"></ion-icon>
                                     Panduan User
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="flex items-center p-2 rounded text-sm hover:bg-slate-700 transition-colors">
+                                <a href="{{ route('help.faq') }}" class="flex items-center p-2 rounded text-sm hover:bg-slate-700 transition-colors {{ request()->routeIs('help.faq') ? 'bg-blue-600 text-white' : '' }}">
                                     <ion-icon name="chatbubble-outline" class="text-slate-400 mr-2"></ion-icon>
                                     FAQ
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="flex items-center p-2 rounded text-sm hover:bg-slate-700 transition-colors">
+                                <a href="{{ route('help.contact') }}" class="flex items-center p-2 rounded text-sm hover:bg-slate-700 transition-colors {{ request()->routeIs('help.contact') ? 'bg-blue-600 text-white' : '' }}">
                                     <ion-icon name="mail-outline" class="text-slate-400 mr-2"></ion-icon>
                                     Kontak Support
                                 </a>

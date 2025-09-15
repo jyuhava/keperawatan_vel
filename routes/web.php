@@ -49,6 +49,24 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::patch('users/{user}/update-password', [UserManagementController::class, 'updatePassword'])->name('users.update-password');
     });
 
+    // Teaching Materials & Supervision (Dosen and Admin)
+    Route::middleware(['check.role:dosen,admin'])->group(function () {
+        // Student Monitoring
+        Route::get('/monitor-mahasiswa', [App\Http\Controllers\SupervisionController::class, 'monitorStudents'])->name('supervision.monitor');
+        
+        // Teaching Materials
+        Route::get('/materi-ajar/panduan-sdki', [App\Http\Controllers\TeachingMaterialController::class, 'panduanSdki'])->name('materials.sdki');
+        Route::get('/materi-ajar/materi-slki', [App\Http\Controllers\TeachingMaterialController::class, 'materiSlki'])->name('materials.slki');
+        Route::get('/materi-ajar/panduan-siki', [App\Http\Controllers\TeachingMaterialController::class, 'panduanSiki'])->name('materials.siki');
+    });
+
+    // Help & Support (All authenticated users)
+    Route::prefix('bantuan')->name('help.')->group(function () {
+        Route::get('/panduan-user', [App\Http\Controllers\HelpController::class, 'userGuide'])->name('user-guide');
+        Route::get('/faq', [App\Http\Controllers\HelpController::class, 'faq'])->name('faq');
+        Route::get('/kontak', [App\Http\Controllers\HelpController::class, 'contact'])->name('contact');
+    });
+
     // Profile management
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
