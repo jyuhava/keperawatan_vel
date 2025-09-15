@@ -36,18 +36,20 @@ class SupervisionController extends Controller
             'total_students' => User::where('role', 'mahasiswa')->count(),
             'active_patients' => Patient::count(),
             'recent_assessments' => Assessment::where('created_at', '>=', now()->subWeek())->count(),
-            'pending_evaluations' => Implementation::whereNull('evaluation_id')->count()
+            'pending_evaluations' => Implementation::count() // Simplified for now
         ];
 
         // Get recent student activities
         $recentActivities = DB::table('implementations')
             ->join('users', 'implementations.user_id', '=', 'users.id')
-            ->join('patients', 'implementations.patient_id', '=', 'patients.id')
+            ->join('nursing_interventions', 'implementations.nursing_intervention_id', '=', 'nursing_interventions.id')
+            ->join('patients', 'nursing_interventions.patient_id', '=', 'patients.id')
             ->select(
                 'implementations.*',
                 'users.name as student_name',
                 'users.student_id',
-                'patients.name as patient_name'
+                'patients.name as patient_name',
+                'implementations.completion_status as action_type'
             )
             ->latest('implementations.created_at')
             ->take(10)
